@@ -142,6 +142,7 @@ const char* const kWebRequestEvents[] = {
     web_request::OnBeforeRequest::kEventName,
     keys::kOnBeforeSendHeadersEvent,
     keys::kOnCompletedEvent,
+    keys::kOnDataReceivedEvent,
     web_request::OnErrorOccurred::kEventName,
     keys::kOnSendHeadersEvent,
     keys::kOnAuthRequiredEvent,
@@ -168,6 +169,8 @@ const char* GetRequestStageAsString(
       return keys::kOnAuthRequired;
     case ExtensionWebRequestEventRouter::kOnResponseStarted:
       return keys::kOnResponseStarted;
+    case ExtensionWebRequestEventRouter::kOnDataReceived:
+      return keys::kOnDataReceived;
     case ExtensionWebRequestEventRouter::kOnErrorOccurred:
       return keys::kOnErrorOccurred;
     case ExtensionWebRequestEventRouter::kOnCompleted:
@@ -374,6 +377,7 @@ events::HistogramValue GetEventHistogramValue(const std::string& event_name) {
        web_request::OnBeforeRequest::kEventName},
       {events::WEB_REQUEST_ON_BEFORE_SEND_HEADERS,
        keys::kOnBeforeSendHeadersEvent},
+      {events::WEB_REQUEST_ON_DATA_RECEIVED, keys::kOnDataReceivedEvent},
       {events::WEB_REQUEST_ON_COMPLETED, keys::kOnCompletedEvent},
       {events::WEB_REQUEST_ON_ERROR_OCCURRED,
        web_request::OnErrorOccurred::kEventName},
@@ -1387,6 +1391,28 @@ void ExtensionWebRequestEventRouter::OnResponseStarted(
       CreateEventDetails(*request, extra_info_spec));
   event_details->SetResponseHeaders(*request, request->response_headers.get());
   event_details->SetResponseSource(*request);
+
+  DispatchEvent(browser_context, request, listeners, std::move(event_details));
+}
+
+void ExtensionWebRequestEventRouter::OnDataReceived(
+    content::BrowserContext* browser_context,
+    const WebRequestInfo* request,
+    net::IOBuffer* buf,
+    int64_t bytes_received) {
+  if (bytes_received <= 0)
+    return;
+
+  int extra_info_spec = 0;
+  RawListeners listeners = GetMatchingListeners(
+      browser_context, keys::kOnDataReceivedEvent, request, &extra_info_spec);
+  if (listeners.empty())
+    return;
+
+  std::unique_ptr<WebRequestEventDetails> event_details(
+      CreateEventDetails(*request, extra_info_spec));
+  event_details->SetResponseSource(*request);
+  event_details->SetResponseBody(buf, bytes_received);
 
   DispatchEvent(browser_context, request, listeners, std::move(event_details));
 }

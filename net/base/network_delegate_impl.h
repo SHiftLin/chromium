@@ -54,6 +54,8 @@ class NET_EXPORT NetworkDelegateImpl : public NetworkDelegate {
   void OnBeforeRedirect(URLRequest* request, const GURL& new_location) override;
 
   void OnResponseStarted(URLRequest* request, int net_error) override;
+  
+  void OnNetworkDataReceived(URLRequest* request, IOBuffer* buf, int64_t bytes_sent) override;
 
   void OnCompleted(URLRequest* request, bool started, int net_error) override;
 

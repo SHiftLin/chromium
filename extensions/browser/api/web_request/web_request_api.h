@@ -39,6 +39,7 @@
 #include "ipc/ipc_sender.h"
 #include "net/base/auth.h"
 #include "net/base/completion_once_callback.h"
+#include "net/base/io_buffer.h"
 #include "net/http/http_request_headers.h"
 #include "services/network/public/mojom/url_loader_factory.mojom.h"
 #include "services/network/public/mojom/websocket.mojom.h"
@@ -286,6 +287,7 @@ class ExtensionWebRequestEventRouter {
     kOnResponseStarted = 1 << 6,
     kOnErrorOccurred = 1 << 7,
     kOnCompleted = 1 << 8,
+    kOnDataReceived = 1 << 9
   };
 
   // Internal representation of the webRequest.RequestFilter type, used to
@@ -432,6 +434,12 @@ class ExtensionWebRequestEventRouter {
   void OnResponseStarted(content::BrowserContext* browser_context,
                          const WebRequestInfo* request,
                          int net_error);
+
+  // Dispatches the onDataReceived event.
+  void OnDataReceived(content::BrowserContext* browser_context,
+                      const WebRequestInfo* request,
+                      net::IOBuffer* buf,
+                      int64_t bytes_received);
 
   // Dispatches the onComplete event.
   void OnCompleted(content::BrowserContext* browser_context,

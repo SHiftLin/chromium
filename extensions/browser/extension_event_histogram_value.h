@@ -483,6 +483,7 @@ enum HistogramValue {
   WINDOWS_ON_BOUNDS_CHANGED = 461,
   WALLPAPER_PRIVATE_ON_CLOSE_PREVIEW_WALLPAPER = 462,
   PASSWORDS_PRIVATE_ON_WEAK_CREDENTIALS_CHANGED = 463,
+  WEB_REQUEST_ON_DATA_RECEIVED = 464,
   // Last entry: Add new entries above, then run:
   // python tools/metrics/histograms/update_extension_histograms.py
   ENUM_BOUNDARY

@@ -17,6 +17,7 @@
 #include "net/base/auth.h"
 #include "net/base/completion_once_callback.h"
 #include "net/base/net_export.h"
+#include "net/base/io_buffer.h"
 #include "net/cookies/canonical_cookie.h"
 #include "net/cookies/site_for_cookies.h"
 #include "net/proxy_resolution/proxy_retry_info.h"
@@ -69,6 +70,7 @@ class NET_EXPORT NetworkDelegate {
   void NotifyBeforeRedirect(URLRequest* request,
                             const GURL& new_location);
   void NotifyResponseStarted(URLRequest* request, int net_error);
+  void NotifyNetworkDataReceived(URLRequest* request, IOBuffer* buf, int64_t bytes_received);
   void NotifyCompleted(URLRequest* request, bool started, int net_error);
   void NotifyURLRequestDestroyed(URLRequest* request);
   void NotifyPACScriptError(int line_number, const base::string16& error);
@@ -182,6 +184,10 @@ class NET_EXPORT NetworkDelegate {
   // This corresponds to URLRequestDelegate::OnResponseStarted.
   virtual void OnResponseStarted(URLRequest* request, int net_error) = 0;
 
+  virtual void OnNetworkDataReceived(URLRequest* request,
+                                    IOBuffer* buf,
+                                    int64_t bytes_received) = 0;
+  
   // Indicates that the URL request has been completed or failed.
   // |started| indicates whether the request has been started. If false,
   // some information like the socket address is not available.

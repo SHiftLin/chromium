@@ -32,6 +32,7 @@ const char kRequestBodyRawBytesKey[] = "bytes";
 const char kRequestBodyRawFileKey[] = "file";
 const char kRequestHeadersKey[] = "requestHeaders";
 const char kResponseHeadersKey[] = "responseHeaders";
+const char kResponseDataKey[] = "responseData";
 const char kHeaderNameKey[] = "name";
 const char kHeaderValueKey[] = "value";
 const char kHeaderBinaryValueKey[] = "binaryValue";
@@ -50,6 +51,7 @@ const char kOnBeforeSendHeadersEvent[] = "webRequest.onBeforeSendHeaders";
 const char kOnCompletedEvent[] = "webRequest.onCompleted";
 const char kOnHeadersReceivedEvent[] = "webRequest.onHeadersReceived";
 const char kOnResponseStartedEvent[] = "webRequest.onResponseStarted";
+const char kOnDataReceivedEvent[] = "webRequest.onDataReceived";
 const char kOnSendHeadersEvent[] = "webRequest.onSendHeaders";
 const char kOnAuthRequiredEvent[] = "webRequest.onAuthRequired";
 
@@ -60,6 +62,7 @@ const char kOnCompleted[] = "onCompleted";
 const char kOnErrorOccurred[] = "onErrorOccurred";
 const char kOnHeadersReceived[] = "onHeadersReceived";
 const char kOnResponseStarted[] = "onResponseStarted";
+const char kOnDataReceived[] = "onDataReceived";
 const char kOnSendHeaders[] = "onSendHeaders";
 const char kOnAuthRequired[] = "onAuthRequired";
 

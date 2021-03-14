@@ -37,6 +37,10 @@ void NetworkDelegateImpl::OnBeforeRedirect(URLRequest* request,
 void NetworkDelegateImpl::OnResponseStarted(URLRequest* request,
                                             int net_error) {}
 
+void NetworkDelegateImpl::OnNetworkDataReceived(URLRequest* request,
+                                                IOBuffer* buf,
+                                                int64_t bytes_sent) {}
+
 void NetworkDelegateImpl::OnCompleted(URLRequest* request,
                                       bool started,
                                       int net_error) {}

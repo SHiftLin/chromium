@@ -569,6 +569,8 @@ bool ExtraInfoSpec::InitFromValue(content::BrowserContext* browser_context,
       *extra_info_spec |= REQUEST_BODY;
     else if (str == "extraHeaders")
       *extra_info_spec |= EXTRA_HEADERS;
+    else if (str == "responseData")
+      *extra_info_spec |= RESPONSE_BODY;
     else
       return false;
   }

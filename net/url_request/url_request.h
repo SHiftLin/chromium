@@ -785,6 +785,8 @@ class NET_EXPORT URLRequest : public base::SupportsUserData {
   // occurs.
   void NotifyResponseStarted(int net_error);
 
+  void NotifyNetworkDataReceived(IOBuffer* buf, int64_t bytes_received);
+
   // These functions delegate to |delegate_|.  See URLRequest::Delegate for the
   // meaning of these functions.
   int NotifyConnected(const TransportInfo& info);

@@ -811,6 +811,12 @@ void URLRequest::NotifyResponseStarted(int net_error) {
   // |this|.
 }
 
+void URLRequest::NotifyNetworkDataReceived(IOBuffer* buf, int64_t bytes_received) {
+  if (network_delegate()) {
+    network_delegate()->NotifyNetworkDataReceived(this, buf, bytes_received);
+  }
+}
+
 void URLRequest::FollowDeferredRedirect(
     const base::Optional<std::vector<std::string>>& removed_headers,
     const base::Optional<net::HttpRequestHeaders>& modified_headers) {

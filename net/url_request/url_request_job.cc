@@ -123,7 +123,8 @@ int URLRequestJob::Read(IOBuffer* buf, int buf_size) {
                      weak_factory_.GetWeakPtr(), false));
   if (result == ERR_IO_PENDING)
     return ERR_IO_PENDING;
-
+  
+  request_->NotifyNetworkDataReceived(buf, result);
   SourceStreamReadComplete(true, result);
   return result;
 }
