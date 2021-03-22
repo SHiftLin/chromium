@@ -302,6 +302,7 @@ class SimpleURLLoaderImpl : public SimpleURLLoader,
 
   // mojom::URLLoaderClient implementation;
   void OnReceiveResponse(mojom::URLResponseHeadPtr response_head) override;
+  void OnDataReceived(const std::string &buf)  override {}
   void OnReceiveRedirect(const net::RedirectInfo& redirect_info,
                          mojom::URLResponseHeadPtr response_head) override;
   void OnReceiveCachedMetadata(mojo_base::BigBuffer data) override;

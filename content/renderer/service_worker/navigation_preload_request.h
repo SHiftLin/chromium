@@ -39,6 +39,7 @@ class NavigationPreloadRequest final : public network::mojom::URLLoaderClient {
   // network::mojom::URLLoaderClient:
   void OnReceiveResponse(
       network::mojom::URLResponseHeadPtr response_head) override;
+  void OnDataReceived(const std::string &buf)  override {}
   void OnReceiveRedirect(
       const net::RedirectInfo& redirect_info,
       network::mojom::URLResponseHeadPtr response_head) override;

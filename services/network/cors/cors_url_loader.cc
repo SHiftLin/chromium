@@ -23,6 +23,8 @@
 #include "services/network/url_loader.h"
 #include "url/url_util.h"
 
+// #include "base/debug/stack_trace.h"
+
 namespace network {
 
 namespace cors {
@@ -282,8 +284,20 @@ void CorsURLLoader::OnReceiveResponse(mojom::URLResponseHeadPtr response_head) {
 
   response_head->response_type = response_tainting_;
   response_head->timing_allow_passed = !timing_allow_failed_flag_;
+  // LOG(ERROR) << "CorsURLLoader";
+  // LOG(ERROR) << request_.url;
+  // if(request_.url=="http://localhost:8000/")
+  // LOG(ERROR) << base::debug::StackTrace();
   forwarding_client_->OnReceiveResponse(std::move(response_head));
 }
+
+void CorsURLLoader::OnDataReceived(const std::string &buf)  {
+  DCHECK(forwarding_client_);
+  forwarding_client_->OnDataReceived(buf);
+  // if(request_.url=="http://localhost:8000/")
+  // LOG(ERROR)<< "GET IN CORSLoader OnDataReceived";
+}
+
 
 void CorsURLLoader::OnReceiveRedirect(const net::RedirectInfo& redirect_info,
                                       mojom::URLResponseHeadPtr response_head) {

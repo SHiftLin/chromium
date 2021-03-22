@@ -23,6 +23,7 @@
 #include "mojo/public/cpp/bindings/remote.h"
 #include "mojo/public/cpp/system/data_pipe.h"
 #include "mojo/public/cpp/system/simple_watcher.h"
+#include "net/base/io_buffer.h"
 #include "net/base/load_states.h"
 #include "net/http/http_raw_request_headers.h"
 #include "net/traffic_annotation/network_traffic_annotation.h"
@@ -45,6 +46,7 @@
 #include "services/network/upload_progress_tracker.h"
 
 namespace net {
+class IOBuffer;
 class HttpResponseHeaders;
 class IPEndPoint;
 struct RedirectInfo;
@@ -150,6 +152,7 @@ class COMPONENT_EXPORT(NETWORK_SERVICE) URLLoader
                              const net::SSLInfo& info,
                              bool fatal) override;
   void OnResponseStarted(net::URLRequest* url_request, int net_error) override;
+  void OnDataReceived(net::IOBuffer* buf, int64_t bytes_received) override;
   void OnReadCompleted(net::URLRequest* url_request, int bytes_read) override;
 
   // These methods are called by the network delegate to forward these events to

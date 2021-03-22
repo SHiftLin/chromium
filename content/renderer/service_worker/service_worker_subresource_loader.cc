@@ -74,6 +74,8 @@ class HeaderRewritingURLLoaderClient : public network::mojom::URLLoaderClient {
     url_loader_client_->OnReceiveResponse(
         rewrite_header_callback_.Run(std::move(response_head)));
   }
+  
+  void OnDataReceived(const std::string &buf)  override {}
 
   void OnReceiveRedirect(
       const net::RedirectInfo& redirect_info,

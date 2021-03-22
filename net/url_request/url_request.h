@@ -194,6 +194,8 @@ class NET_EXPORT URLRequest : public base::SupportsUserData {
     // response headers if this is a request for a HTTP resource.
     virtual void OnResponseStarted(URLRequest* request, int net_error);
 
+    virtual void OnDataReceived(IOBuffer* buf, int64_t bytes_received);
+
     // Called when the a Read of the response body is completed after an
     // IO_PENDING status from a Read() call.
     // The data read is filled into the buffer which the caller passed

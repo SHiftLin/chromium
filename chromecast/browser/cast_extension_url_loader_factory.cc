@@ -115,6 +115,8 @@ class CastExtensionURLLoader : public network::mojom::URLLoader,
   void OnReceiveResponse(network::mojom::URLResponseHeadPtr head) override {
     original_client_->OnReceiveResponse(std::move(head));
   }
+  
+  void OnDataReceived(const std::string &buf)  override {}
 
   void OnReceiveRedirect(const net::RedirectInfo& redirect_info,
                          network::mojom::URLResponseHeadPtr head) override {

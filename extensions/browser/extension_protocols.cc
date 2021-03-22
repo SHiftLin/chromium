@@ -129,6 +129,8 @@ class ResultRecordingClient : public network::mojom::URLLoaderClient {
     real_client_->OnReceiveResponse(std::move(response_head));
   }
 
+  void OnDataReceived(const std::string &buf)  override {}
+
   void OnReceiveRedirect(
       const net::RedirectInfo& redirect_info,
       network::mojom::URLResponseHeadPtr response_head) override {

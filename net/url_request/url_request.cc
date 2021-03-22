@@ -156,6 +156,11 @@ void URLRequest::Delegate::OnResponseStarted(URLRequest* request,
   NOTREACHED();
 }
 
+void URLRequest::Delegate::OnDataReceived(IOBuffer* buf,
+                                          int64_t bytes_received) {
+  NOTREACHED();
+}
+
 ///////////////////////////////////////////////////////////////////////////////
 // URLRequest
 
@@ -815,6 +820,7 @@ void URLRequest::NotifyNetworkDataReceived(IOBuffer* buf, int64_t bytes_received
   if (network_delegate()) {
     network_delegate()->NotifyNetworkDataReceived(this, buf, bytes_received);
   }
+  delegate_->OnDataReceived(buf, bytes_received);
 }
 
 void URLRequest::FollowDeferredRedirect(

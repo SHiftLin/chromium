@@ -351,7 +351,7 @@ class NET_EXPORT URLRequestJob {
   // Helper method used to perform tasks after reading from |source_stream_| is
   // completed. |synchronous| true if the read completed synchronously.
   // See the documentation for |Read| above for the contract of this method.
-  void SourceStreamReadComplete(bool synchronous, int result);
+  void SourceStreamReadComplete(bool synchronous, IOBuffer* buf, int result);
 
   // Invokes ReadRawData and records bytes read if the read completes
   // synchronously.

@@ -204,6 +204,8 @@ class SubresourceLoader : public network::mojom::URLLoader,
                        std::move(response_head_clone)));
   }
 
+  void OnDataReceived(const std::string &buf)  override {}
+
   void ContinueOnReceiveResponse(
       network::mojom::URLResponseHeadPtr response_head,
       SingleRequestURLLoaderFactory::RequestHandler handler) {

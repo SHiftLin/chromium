@@ -95,6 +95,7 @@ class CONTENT_EXPORT PrefetchURLLoader : public network::mojom::URLLoader,
 
   // network::mojom::URLLoaderClient overrides:
   void OnReceiveResponse(network::mojom::URLResponseHeadPtr head) override;
+  void OnDataReceived(const std::string &buf)  override {}
   void OnReceiveRedirect(const net::RedirectInfo& redirect_info,
                          network::mojom::URLResponseHeadPtr head) override;
   void OnUploadProgress(int64_t current_position,

@@ -116,6 +116,7 @@ class CONTENT_EXPORT NavigationURLLoaderImpl
 
   // network::mojom::URLLoaderClient implementation:
   void OnReceiveResponse(network::mojom::URLResponseHeadPtr head) override;
+  void OnDataReceived(const std::string &buf)  override {}
   void OnStartLoadingResponseBody(
       mojo::ScopedDataPipeConsumerHandle response_body) override;
   void OnReceiveRedirect(const net::RedirectInfo& redirect_info,

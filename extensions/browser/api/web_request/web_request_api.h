@@ -438,8 +438,7 @@ class ExtensionWebRequestEventRouter {
   // Dispatches the onDataReceived event.
   void OnDataReceived(content::BrowserContext* browser_context,
                       const WebRequestInfo* request,
-                      net::IOBuffer* buf,
-                      int64_t bytes_received);
+                      const string &buf);
 
   // Dispatches the onComplete event.
   void OnCompleted(content::BrowserContext* browser_context,

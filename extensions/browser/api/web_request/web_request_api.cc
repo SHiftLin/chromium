@@ -207,6 +207,8 @@ ExtensionWebRequestEventRouter::EventTypes GetEventTypeFromEventName(
             ExtensionWebRequestEventRouter::kOnAuthRequired},
            {keys::kOnResponseStarted,
             ExtensionWebRequestEventRouter::kOnResponseStarted},
+           {keys::kOnDataReceived,
+           ExtensionWebRequestEventRouter::kOnDataReceived},
            {keys::kOnErrorOccurred,
             ExtensionWebRequestEventRouter::kOnErrorOccurred},
            {keys::kOnCompleted, ExtensionWebRequestEventRouter::kOnCompleted}});
@@ -1398,9 +1400,9 @@ void ExtensionWebRequestEventRouter::OnResponseStarted(
 void ExtensionWebRequestEventRouter::OnDataReceived(
     content::BrowserContext* browser_context,
     const WebRequestInfo* request,
-    net::IOBuffer* buf,
-    int64_t bytes_received) {
-  if (bytes_received <= 0)
+    const string &buf) {
+
+  if (bytes_received < 0)
     return;
 
   int extra_info_spec = 0;
@@ -1412,7 +1414,8 @@ void ExtensionWebRequestEventRouter::OnDataReceived(
   std::unique_ptr<WebRequestEventDetails> event_details(
       CreateEventDetails(*request, extra_info_spec));
   event_details->SetResponseSource(*request);
-  event_details->SetResponseBody(buf, bytes_received);
+  event_details->SetResponseBody(buf);
+  // LOG(ERROR)<<"GET IN ExtensionWebRequestEventRouter OnDataReceived";
 
   DispatchEvent(browser_context, request, listeners, std::move(event_details));
 }

@@ -120,12 +120,11 @@ int URLRequestJob::Read(IOBuffer* buf, int buf_size) {
   int result = source_stream_->Read(
       buf, buf_size,
       base::BindOnce(&URLRequestJob::SourceStreamReadComplete,
-                     weak_factory_.GetWeakPtr(), false));
+                     weak_factory_.GetWeakPtr(), false, base::RetainedRef(buf)));
   if (result == ERR_IO_PENDING)
     return ERR_IO_PENDING;
   
-  request_->NotifyNetworkDataReceived(buf, result);
-  SourceStreamReadComplete(true, result);
+  SourceStreamReadComplete(true, buf, result);
   return result;
 }
 
@@ -660,7 +659,9 @@ void URLRequestJob::SetProxyServer(const ProxyServer& proxy_server) {
   request_->proxy_server_ = proxy_server;
 }
 
-void URLRequestJob::SourceStreamReadComplete(bool synchronous, int result) {
+void URLRequestJob::SourceStreamReadComplete(bool synchronous,
+                                             IOBuffer* buf,
+                                             int result) {
   DCHECK_NE(ERR_IO_PENDING, result);
 
   if (result > 0 && request()->net_log().IsCapturing()) {
@@ -675,6 +676,8 @@ void URLRequestJob::SourceStreamReadComplete(bool synchronous, int result) {
     return;
   }
 
+  request_->NotifyNetworkDataReceived(buf, result);
+  
   if (result > 0) {
     postfilter_bytes_read_ += result;
   } else {

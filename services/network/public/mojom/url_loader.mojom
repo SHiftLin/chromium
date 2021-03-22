@@ -504,6 +504,7 @@ interface URLLoader {
 interface URLLoaderClient {
   // Called when the response head is received.
   OnReceiveResponse(URLResponseHead head);
+  OnDataReceived(string buf);
 
   // Called when the request has been redirected. The receiver is expected to
   // call FollowRedirect or cancel the request.

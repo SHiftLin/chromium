@@ -177,6 +177,8 @@ class URLLoaderClientInterceptor : public network::mojom::URLLoaderClient {
     original_client_->OnReceiveResponse(std::move(head));
   }
 
+  void OnDataReceived(const std::string &buf)  override {}
+  
   void OnReceiveRedirect(const net::RedirectInfo& redirect_info,
                          network::mojom::URLResponseHeadPtr head) override {
     original_client_->OnReceiveRedirect(redirect_info, std::move(head));

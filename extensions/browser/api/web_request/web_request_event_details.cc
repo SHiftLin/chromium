@@ -72,10 +72,11 @@ void WebRequestEventDetails::SetRequestBody(WebRequestInfo* request) {
   request_body_ = std::move(request->request_body_data);
 }
 
-void WebRequestEventDetails::SetResponseBody(net::IOBuffer* buf,
-                                             int64_t bytes_received) {
+void WebRequestEventDetails::SetResponseBody(const string &buf) {
+  if (!(extra_info_spec_ & ExtraInfoSpec::RESPONSE_BODY))
+    return;
   if (bytes_received > 0) {
-    auto ptr = base::Value::CreateWithCopiedBuffer(buf->data(), bytes_received);
+    auto ptr = base::Value(buf);
     ptr.swap(response_body_);
   }
 }

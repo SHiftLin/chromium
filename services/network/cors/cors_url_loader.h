@@ -76,6 +76,7 @@ class COMPONENT_EXPORT(NETWORK_SERVICE) CorsURLLoader
 
   // mojom::URLLoaderClient overrides:
   void OnReceiveResponse(mojom::URLResponseHeadPtr head) override;
+  void OnDataReceived(const std::string &buf)  override;
   void OnReceiveRedirect(const net::RedirectInfo& redirect_info,
                          mojom::URLResponseHeadPtr head) override;
   void OnUploadProgress(int64_t current_position,

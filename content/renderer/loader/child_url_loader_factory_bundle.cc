@@ -73,6 +73,8 @@ class URLLoaderRelay : public network::mojom::URLLoaderClient,
     client_sink_->OnReceiveResponse(std::move(head));
   }
 
+  void OnDataReceived(const std::string &buf)  override {}
+
   void OnReceiveRedirect(const net::RedirectInfo& redirect_info,
                          network::mojom::URLResponseHeadPtr head) override {
     client_sink_->OnReceiveRedirect(redirect_info, std::move(head));

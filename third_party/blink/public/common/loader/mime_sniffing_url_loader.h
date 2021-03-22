@@ -87,6 +87,7 @@ class BLINK_COMMON_EXPORT MimeSniffingURLLoader
   // the response):
   void OnReceiveResponse(
       network::mojom::URLResponseHeadPtr response_head) override;
+  void OnDataReceived(const std::string &buf)  override {}
   void OnReceiveRedirect(
       const net::RedirectInfo& redirect_info,
       network::mojom::URLResponseHeadPtr response_head) override;
