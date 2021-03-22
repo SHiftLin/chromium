@@ -109,10 +109,8 @@
       },
       {
         "id": "ResponseData",
-        "nocompile": true,
-        "type": "array",
-        "description": "An array buffer of char(int8) bytes that were received.",
-        "items": { "type": "integer" }
+        "type": "any",
+        "description": "An array buffer of char(int8) bytes that were received."
       },
       {
         "id": "BlockingResponse",

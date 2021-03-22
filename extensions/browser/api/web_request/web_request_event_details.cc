@@ -10,6 +10,7 @@
 #include "base/bind.h"
 #include "base/callback.h"
 #include "base/strings/string_number_conversions.h"
+#include "base/base64.h"
 #include "content/public/browser/browser_context.h"
 #include "content/public/browser/browser_thread.h"
 #include "content/public/browser/render_frame_host.h"
@@ -72,10 +73,10 @@ void WebRequestEventDetails::SetRequestBody(WebRequestInfo* request) {
   request_body_ = std::move(request->request_body_data);
 }
 
-void WebRequestEventDetails::SetResponseBody(const std::string &buf) {
+void WebRequestEventDetails::SetResponseBody(const std::string& buf) {
   if (!(extra_info_spec_ & ExtraInfoSpec::RESPONSE_BODY))
     return;
-  auto ptr = std::make_unique<base::Value>(buf);
+  auto ptr = base::Value::CreateWithCopiedBuffer(buf.c_str(), buf.size());
   ptr.swap(response_body_);
 }
 
