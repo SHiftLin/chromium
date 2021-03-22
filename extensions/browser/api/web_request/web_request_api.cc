@@ -1400,10 +1400,7 @@ void ExtensionWebRequestEventRouter::OnResponseStarted(
 void ExtensionWebRequestEventRouter::OnDataReceived(
     content::BrowserContext* browser_context,
     const WebRequestInfo* request,
-    const string &buf) {
-
-  if (bytes_received < 0)
-    return;
+    const std::string &buf) {
 
   int extra_info_spec = 0;
   RawListeners listeners = GetMatchingListeners(
@@ -1415,8 +1412,7 @@ void ExtensionWebRequestEventRouter::OnDataReceived(
       CreateEventDetails(*request, extra_info_spec));
   event_details->SetResponseSource(*request);
   event_details->SetResponseBody(buf);
-  // LOG(ERROR)<<"GET IN ExtensionWebRequestEventRouter OnDataReceived";
-
+  
   DispatchEvent(browser_context, request, listeners, std::move(event_details));
 }
 

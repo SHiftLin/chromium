@@ -40,7 +40,6 @@
 #include "third_party/blink/public/platform/resource_request_blocked_reason.h"
 #include "url/origin.h"
 
-// #include "base/debug/stack_trace.h"
 
 namespace extensions {
 namespace {
@@ -344,9 +343,7 @@ void WebRequestProxyingURLLoaderFactory::InProgressRequest::OnReceiveResponse(
 }
 
 void WebRequestProxyingURLLoaderFactory::InProgressRequest::OnDataReceived(
-    std::string buf) {
-    //  LOG(ERROR) << "GETIN WebRequestProxyingURLLoaderFactory onDataReceived " <<info_->url.spec()
-    //   << " " << buf.size();
+    const std::string &buf) {
     ExtensionWebRequestEventRouter::GetInstance()->OnDataReceived(
       factory_->browser_context_, &info_.value(), buf);
 }

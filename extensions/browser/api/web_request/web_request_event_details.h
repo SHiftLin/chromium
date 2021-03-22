@@ -63,7 +63,7 @@ class WebRequestEventDetails {
 
   // Sets the following key:
   // - responseBody
-  void SetResponseBody(net::IOBuffer* buf, int64_t bytes_received);
+  void SetResponseBody(const std::string &buf);
 
   // Sets the following key:
   // - requestHeaders (on demand)

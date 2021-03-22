@@ -72,13 +72,11 @@ void WebRequestEventDetails::SetRequestBody(WebRequestInfo* request) {
   request_body_ = std::move(request->request_body_data);
 }
 
-void WebRequestEventDetails::SetResponseBody(const string &buf) {
+void WebRequestEventDetails::SetResponseBody(const std::string &buf) {
   if (!(extra_info_spec_ & ExtraInfoSpec::RESPONSE_BODY))
     return;
-  if (bytes_received > 0) {
-    auto ptr = base::Value(buf);
-    ptr.swap(response_body_);
-  }
+  auto ptr = std::make_unique<base::Value>(buf);
+  ptr.swap(response_body_);
 }
 
 void WebRequestEventDetails::SetRequestHeaders(

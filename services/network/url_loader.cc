@@ -71,8 +71,6 @@
 #include "services/network/trust_tokens/operation_timing_request_helper_wrapper.h"
 #include "services/network/trust_tokens/trust_token_request_helper.h"
 
-// #include "base/debug/stack_trace.h"
-
 namespace network {
 
 namespace {
@@ -1251,8 +1249,6 @@ void URLLoader::OnResponseStarted(net::URLRequest* url_request, int net_error) {
 }
 
 void URLLoader::OnDataReceived(net::IOBuffer* buf, int64_t bytes_received) {
-  //   if(url_request_->url()=="http://localhost:8000/")
-  // LOG(ERROR)<< "GET IN URLLoader OnDataReceived";
   url_loader_client_->OnDataReceived(std::string(buf->data(), bytes_received));
 }
 
