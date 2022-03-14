@@ -364,7 +364,7 @@ def _optimize(in_folder, args):
                     '--comments', '/Copyright|license|LICENSE|\<\/?if/',
                     '--output', os.path.join(out_path, js_out_file)])
   finally:
-    shutil.rmtree(tmp_out_dir)
+    shutil.rmtree(tmp_out_dir, ignore_errors=True)
   return manifest_out_path
 
 def main(argv):
